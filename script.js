@@ -1,72 +1,133 @@
 
-function initMap() {
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 14,
-      center: {lat: 37.77, lng: -122.447}
-    });
+var directionDisplay;
+var directionDisplay2;
+    
+var map;
+var map2;   
+
+
+function initialize() {
+    
+    var krakow = new google.maps.LatLng(50.061,19.937);
+    var myOptions = {
+        zoom:12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: krakow
+    }
+    var myOptions2 = {
+        zoom:12,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        center: krakow
+    }
+
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     directionsDisplay.setMap(map);
-  
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-    document.getElementById('mode').addEventListener('change', function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+    directionsDisplay2 = new google.maps.DirectionsRenderer();
+    map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions2);
+    directionsDisplay2.setMap(map2);
+
+    function podglad(x){
+        var searchBox = new google.maps.places.SearchBox(x);
+        map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+        });
+    }
+    let start = document.getElementById('start');
+    let end = document.getElementById('end');
+    podglad(start);
+    podglad(end);
+}
+    
+var directionsService = new google.maps.DirectionsService();
+
+function calcRoute() {
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+    var distanceInput = document.getElementById("distance");
+    var time = document.getElementById("time");
+    
+
+    var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);           
+            distanceInput.value = response.routes[0].legs[0].distance.value / 1000;
+            time.value = response.routes[0].legs[0].duration.text;
+        }
     });
-  }
-  
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    var selectedMode = document.getElementById('mode').value;
-    directionsService.route({
-      origin: {lat: 37.77, lng: -122.447},  // Haight.
-      destination: {lat: 37.768, lng: -122.511},  // Ocean Beach.
-      // Note that Javascript allows us to access the constant
-      // using square brackets and a string value as its
-      // "property."
-      travelMode: google.maps.TravelMode[selectedMode]
-    }, function(response, status) {
-      if (status == 'OK') {
-        directionsDisplay.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
+}
+
+let time2InNum;
+function calcRoute2() {
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+    var distanceInput = document.getElementById("distance2");
+    var time2 = document.getElementById("time2");
+    var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.DirectionsTravelMode.BICYCLING
+    };
+
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            
+            directionsDisplay2.setDirections(response);
+            distanceInput.value = response.routes[0].legs[0].distance.value / 1000;
+            time2.value = response.routes[0].legs[0].duration.text;
+            time2InNum = response.routes[0].legs[0].duration.value;
+        }
     });
-  }
+}
+// //////////////////////////////////
+
+let calcBtn = document.querySelector("#calcBtn");
+//tygodniowa oszczednosc paliwa
+const pbPriceKm = 0.5;
+let dist = document.querySelector("#distance");
+let pbWeek = document.querySelector("#pbWeek");
+
+calcBtn.addEventListener("click", function(){
+    let countPbWeek = dist.value * pbPriceKm * 10;
+    pbWeek.value = Math.ceil(countPbWeek);
+});
+
+//kalorie dziennie
+const kcalmin = 10;
+let kcalDay = document.querySelector("#kcalDay");
+
+calcBtn.addEventListener("click", function(){
+    let countKcalDay = ((time2InNum / 60)* kcalmin) * 2;
+    kcalDay.value = Math.ceil(countKcalDay);
+});
 
 
-//   var map = new google.maps.Map(document.getElementById('map'),{
-//     center:{
-//         lat: 27.72,
-//         lng: 85.36
-//     },
-//     zoom: 15
-// });
+//emisja CO2 tygodniowa // CO2 180g/km
+const co2Km = 180;
+let co2Week = document.querySelector("#coDwa");
 
-// var marker = new google.maps.Marker({
-//     position:(
-//         lat: 27.72,
-//         lng: 85.36
-//     ),
-//     map:map,
-//     draggable:true
-// })
+calcBtn.addEventListener("click", function(){
+    let countCo2Week = dist.value * co2Km * 10;
+  
+    co2Week.value = Math.ceil(countCo2Week / 1000) + ' (kg)';
+});
 
-// var searchBoxStart = new gogle.maps.places.SearchBox(document.getElementById('mapsearchStart'));
-// var searchBoxEnd = new gogle.maps.places.SearchBox(document.getElementById('mapsearchEnd'));
 
-// //place change event on search box
-// google.maps.event.addListener(searchBox, 'places_change', function(){
 
-//     var places = searchBox.getPlaces();
 
-//     var bounds = new.gogle.maps.LatLngBounds();
-//     var i, place:
-//     for(i=0; place=places[i];i++){
-//         console.log(place.geometry.location);
 
-//         bounds.extend(place.geometry.location);
-//         marker.serPosition(place.geometry.location);
-//     }
-//     map.fitBounds(bounds);
-//     map.setZoom(15);
 
-// });
+
+
+
+
+
+
+

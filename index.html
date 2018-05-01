@@ -1,30 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<html>
+    <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzp2TkTYM-62KercwMzqzJ-G3GSHFXQFA&libraries=places"></script>
 
-<body>
-    <div id="floating-panel">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-          <option value="DRIVING">Driving</option>
-          <option value="WALKING">Walking</option>
-          <option value="BICYCLING">Bicycling</option>
-          <option value="TRANSIT">Transit</option>
-        </select>
-        
+
+    <title>Distance Calculator</title>
+
+    </head>
+    <body>
+
+    <body onload="initialize()">
+    <p>Wprowadź dane i zobacz różnicę w jeździe rowerem i samochodem</p>
+    
+    <div id="mapWrapper">
+        <div id="map_canvas"></div>
+        <div id="map_canvas2"></div>
+    </div>   
+    <div id="searchBox">
+            <input type="text" name="start" id="start" placeholder="Gdzie mieszkasz?" />
+            <input type="text" name="end" id="end" placeholder="Gdzie pracujesz?" />  
     </div>
-        <div id="map"></div>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzp2TkTYM-62KercwMzqzJ-G3GSHFXQFA&callback=initMap">
-        </script>    <script src="script.js"></script>
-</body>
+    <div id="buttons">
+        <input type="submit" class="btn" value="Wyznacz Trasę" onclick="calcRoute(), calcRoute2()" />
+        <input type="submit" class="btn" id="calcBtn" value="Oblicz różnicę!" />
+    </div>
+    <div id="wrapper">
+        <div id="carSection">
+            <h1>Samochodem</h1>
+            <p>
+                <label for="distance">Dystans</label>
+                <input type="text" class="input" name="distance" id="distance" readonly="true" />
+            </p>
+            <p>
+                <label for="time">Czas Przejazdu</label>
+                <input type="text" class="input" name="time" id="time" readonly="true" />
+            </p>
+            <p>
+                <label for="pbWeek">Tygodniowy koszt paliwa</label>
+                <input type="text" class="input" name="pbWeek" id="pbWeek" readonly="true" />
+            </p>
+            <p>
+                <label for="coDwa">Tygodniowa emisja CO2</label>
+                <input type="text" class="input" name="coDwa" id="coDwa" readonly="true" />
+            </p>    
+        </div>
+        <div id="bikeSection">
+            <h1>Rowerem</h1>
+            <p>
+                <input type="text" class="input" name="distance2" id="distance2" readonly="true" />
+                <label for="distance2">Dystans</label>
+            </p>
+            <p>
+                <input type="text" class="input" name="time2" id="time2" readonly="true" />
+                <label for="time2">Czas Przejazdu</label>
+            </p>
+            <p>
+                <input type="text" class="input" name="kcalDay" id="kcalDay" readonly="true" />
+                <label for="kcalDay">Dziennie spalonych kalorii</label>
+            </p>
+        </div>
+    </div>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
 </html>
-
-<!-- AIzaSyBzp2TkTYM-62KercwMzqzJ-G3GSHFXQFA -->
