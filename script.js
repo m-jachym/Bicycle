@@ -41,25 +41,23 @@ function initialize() {
 }
     
 var directionsService = new google.maps.DirectionsService();
-
+let timeInNumCar;
 function calcRoute() {
     var start = document.getElementById("start").value;
     var end = document.getElementById("end").value;
     var distanceInput = document.getElementById("distance");
     var time = document.getElementById("time");
-    
-
     var request = {
         origin:start,
         destination:end,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
-
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);           
             distanceInput.value = response.routes[0].legs[0].distance.value / 1000;
             time.value = response.routes[0].legs[0].duration.text;
+            timeInNumCar = response.routes[0].legs[0].duration.value;
         }
     });
 }
@@ -75,7 +73,6 @@ function calcRoute2() {
         destination:end,
         travelMode: google.maps.DirectionsTravelMode.BICYCLING
     };
-
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             
@@ -89,36 +86,49 @@ function calcRoute2() {
 // //////////////////////////////////
 
 let calcBtn = document.querySelector("#calcBtn");
-//tygodniowa oszczednosc paliwa
-const pbPriceKm = 0.5;
-let dist = document.querySelector("#distance");
-let pbWeek = document.querySelector("#pbWeek");
+calcBtn.addEventListener("click", countDifferenceDaily(1, calcBtn));
+let calcBtnWeek = document.querySelector("#calcBtnWeek");
+calcBtnWeek.addEventListener("click", countDifferenceDaily(5, calcBtnWeek));
+let calcBtnMonth = document.querySelector("#calcBtnMonth");
+calcBtnMonth.addEventListener("click", countDifferenceDaily(20, calcBtnMonth));
+let calcBtnYear = document.querySelector("#calcBtnYear");
+calcBtnYear.addEventListener("click", countDifferenceDaily(251, calcBtnYear));
 
-calcBtn.addEventListener("click", function(){
-    let countPbWeek = dist.value * pbPriceKm * 10;
-    pbWeek.value = Math.ceil(countPbWeek);
-});
+function countDifferenceDaily(days, daysbtn) {
+    
+    //paliwo
+    const pbPriceKm = 0.5;
+    let dist = document.querySelector("#distance");
+    let pbCar = document.querySelector("#pbCar");
+    daysbtn.addEventListener("click", function(){
+        let countPbCar = dist.value * pbPriceKm * 2 * days;
+        pbCar.value = Math.ceil(countPbCar);
+        document.querySelector("#pbBike").value = 0;
+    });
 
-//kalorie dziennie
-const kcalmin = 10;
-let kcalDay = document.querySelector("#kcalDay");
+    //emisja CO2  // CO2 180g/km
+    const co2Km = 160;
+    let co2Day = document.querySelector("#coDwa");
 
-calcBtn.addEventListener("click", function(){
-    let countKcalDay = ((time2InNum / 60)* kcalmin) * 2;
-    kcalDay.value = Math.ceil(countKcalDay);
-});
+    daysbtn.addEventListener("click", function(){
+        let countCo2Day = dist.value * co2Km * 2 * days;
+        co2Day.value = Math.ceil(countCo2Day) + ' (gram)';
+        document.querySelector("#coDwaBike").value = 0;
+    });
 
+    //kalorie 
+    const kcalmin = 10;
+    let kcalBike = document.querySelector("#kcalBike");
+    const kcalminCar = 1.3;
+    let kcalCar = document.querySelector("#kcalCar");
+    daysbtn.addEventListener("click", function(){
+        let countKcalBike = ((time2InNum / 60)* kcalmin) * 2 * days;
+        kcalBike.value = Math.ceil(countKcalBike);
+        let countKcalCar = ((timeInNumCar / 60)* kcalminCar)* 2 * days;
+        kcalCar.value = Math.floor(countKcalCar);
+    });
 
-//emisja CO2 tygodniowa // CO2 180g/km
-const co2Km = 180;
-let co2Week = document.querySelector("#coDwa");
-
-calcBtn.addEventListener("click", function(){
-    let countCo2Week = dist.value * co2Km * 10;
-  
-    co2Week.value = Math.ceil(countCo2Week / 1000) + ' (kg)';
-});
-
+}
 
 
 
