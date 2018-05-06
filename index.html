@@ -1,6 +1,7 @@
 <html>
     <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzp2TkTYM-62KercwMzqzJ-G3GSHFXQFA&libraries=places"></script>
 
@@ -11,59 +12,70 @@
     <body>
 
     <body onload="initialize()">
-    <h1>Tydzień na rowerze!<br>Zamień samochód na rower!</h1>
+    <h1>Lorem Ipsum<br>Zamień samochód na rower</h1>
     <div id="searchBox">
         <input type="text" name="start" id="start" placeholder="Wpisz gdzie mieszkasz..." />
         <input type="text" name="end" id="end" placeholder="Wpisz gdzie pracujesz..." />  
     </div>  
+    <input type="submit" class="btn" value="Wyznacz Trasę" onclick="calcRoute(), calcRoute2()" />   
     <div id="mapWrapper">
         <section>
-            <h1>Trasa samochodem</h1>
-            <div id="map_canvas"></div>
+            <p>Trasa samochodem</p>
+            <div id="map_canvas" class="mapCanv"></div>
         </section>
         <section>
-            <h1>Trasa rowerem</h1>
-            <div id="map_canvas2"></div>
+            <p>Trasa rowerem</p>
+            <div id="map_canvas2" class="mapCanv"></div>
         </section>
-    </div>   
-
-    
-        <input type="submit" class="btn" value="Wyznacz Trasę" onclick="calcRoute(), calcRoute2()" />   
-    
+    </div>
+    <h1>Wybierz okres czasu</h1>   
+    <div id="periodBtn">
+            <input type="submit" class="btn" id="calcBtn" value="Dzień" />
+            <input type="submit" class="btn" id="calcBtnWeek" value="Tydzień" />
+            <input type="submit" class="btn" id="calcBtnMonth" value="Miesiąc" />
+            <input type="submit" class="btn" id="calcBtnYear" value="Rok" />
+    </div>
     <div id="wrapper">
+        <section>
+            <h1>Samochód</h1>
+            <h1>Rower</h1>
+        </section>
         <ul>
-            
-            <li id="periodBtn">
-                <input type="submit" class="btn" id="calcBtn" value="Dzień" />
-                <input type="submit" class="btn" id="calcBtnWeek" value="Tydzień" />
-                <input type="submit" class="btn" id="calcBtnMonth" value="Miesiąc" />
-                <input type="submit" class="btn" id="calcBtnYear" value="Rok" />
-            </li>
-            <li id="titles"><h1>Samochód</h1><h1>Rower</h1></li>
             <li id ="distanceBar">
-                <input type="text" class="input" name="distance" id="distance" readonly="true" />
                 <p>Odległość</p>
-                <input type="text" class="input" name="distance2" id="distance2" readonly="true" />
+                <section>
+                    <input type="text" class="input" name="distance" id="distance" readonly="true" />
+                    <input type="text" class="input" name="distance2" id="distance2" readonly="true" />
+                </section>
             </li>
             <li id="timeBar">
-                <input type="text" class="input" name="time" id="time" readonly="true" />
                 <p>Czas</p>
-                <input type="text" class="input" name="time2" id="time2" readonly="true" />
+                <section>
+                    <input type="text" class="input" name="time" id="time" readonly="true" />
+                    <input type="text" class="input" name="time2" id="time2" readonly="true" />
+                </section>
+                
             </li>
             <li id="pbCostBar">
-                <input type="text" class="input" name="pbCar" id="pbCar" readonly="true" />
-                <p>Koszt paliwa (dzień)</p>
-                <!-- koszt rowerem 0pln --><input type="text" class="input" name="pbBike" id="pbBike" readonly="true" />
+                <p>Koszt paliwa</p>
+                <section>
+                    <input type="text" class="input" name="pbCar" id="pbCar" readonly="true" />
+                    <!-- koszt rowerem 0pln --><input type="text" class="input" name="pbBike" id="pbBike" readonly="true" />        
+                </section>
             </li>
             <li id="co2Bar">
-                <input type="text" class="input" name="coDwa" id="coDwa" readonly="true" />
-                <p>Emisja CO2 (dzień)</p>
-                <!-- emisja rower 0 --><input type="text" class="input" name="coDwaBike" id="coDwaBike" readonly="true" />
+                <p>Emisja CO2</p>
+                <section>
+                    <input type="text" class="input" name="coDwa" id="coDwa" readonly="true" />
+                    <!-- emisja rower 0 --><input type="text" class="input" name="coDwaBike" id="coDwaBike" readonly="true" />
+                </section>
             </li>
             <li id="kcalBar">
-                <!-- kalorie samochodem --> <input type="text" class="input" name="kcalCar" id="kcalCar" readonly="true" />
                 <p>Spalone kalorie</p>
-                <input type="text" class="input" name="kcalBike" id="kcalBike" readonly="true" />
+                <section>
+                    <!-- kalorie samochodem --> <input type="text" class="input" name="kcalCar" id="kcalCar" readonly="true" />  
+                    <input type="text" class="input" name="kcalBike" id="kcalBike" readonly="true" />
+                </section>
             </li>
             <li id="sportTimeBar"></li>   
         </ul>     
