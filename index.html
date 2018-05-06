@@ -12,7 +12,9 @@
     <body>
 
     <body onload="initialize()">
-    <h1>Lorem Ipsum<br>Zamień samochód na rower</h1>
+    <div id="title">
+        <h1>Lorem Ipsum<br>Zamień samochód na rower</h1>
+    </div>   
     <div id="searchBox">
         <input type="text" name="start" id="start" placeholder="Wpisz gdzie mieszkasz..." />
         <input type="text" name="end" id="end" placeholder="Wpisz gdzie pracujesz..." />  
@@ -28,13 +30,15 @@
             <div id="map_canvas2" class="mapCanv"></div>
         </section>
     </div>
-    <h1>Wybierz okres czasu</h1>   
-    <div id="periodBtn">
-            <input type="submit" class="btn" id="calcBtn" value="Dzień" />
-            <input type="submit" class="btn" id="calcBtnWeek" value="Tydzień" />
-            <input type="submit" class="btn" id="calcBtnMonth" value="Miesiąc" />
-            <input type="submit" class="btn" id="calcBtnYear" value="Rok" />
-    </div>
+    <section class="butsec">
+        <h1>Wybierz okres czasu</h1>   
+        <div id="periodBtn">
+                <input type="submit" class="btn" id="calcBtn" value="Dzień" />
+                <input type="submit" class="btn" id="calcBtnWeek" value="Tydzień" />
+                <input type="submit" class="btn" id="calcBtnMonth" value="Miesiąc" />
+                <input type="submit" class="btn" id="calcBtnYear" value="Rok" />
+        </div>
+    </section>
     <div id="wrapper">
         <section>
             <h1>Samochód</h1>
@@ -49,12 +53,11 @@
                 </section>
             </li>
             <li id="timeBar">
-                <p>Czas</p>
+                <p>Czas dojazdu</p>
                 <section>
                     <input type="text" class="input" name="time" id="time" readonly="true" />
                     <input type="text" class="input" name="time2" id="time2" readonly="true" />
-                </section>
-                
+                </section>               
             </li>
             <li id="pbCostBar">
                 <p>Koszt paliwa</p>
