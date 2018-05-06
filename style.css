@@ -63,17 +63,34 @@ h1 {
     text-align: center;
 }
 #title > h1 {
-    background-color: rgba(91, 81, 185, 0.4);
+    background-color: rgba(91, 81, 185, 0.8);
     padding: 3rem 0;
 }
 
 #searchBox {
     display: flex;
     width: 100%;
-    background-color: rgba(91, 81, 185, 0.4);
+    background-color: rgba(91, 81, 185, 0.6);
+}
+#searchBox > input:focus {
+    background-color: white;
+    border-color: rgb(91, 81, 185);
+    border-style: solid;
+}
+.btn {
+    color: rgb(91, 81, 185);
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, 0.5);
+    border:none;
 }
 .btn:hover {
-    background: blue;
+    color: white;
+    background-color: rgb(91, 81, 185);  
+}
+.btn:focus {
+    color: white;
+    background-color: rgb(91, 81, 185); 
 }
 input {
     width: 100%;
@@ -83,7 +100,7 @@ input {
 #mapWrapper {
     display: flex;
     height: 60%;
-    background-color: rgba(91, 81, 185, 0.4);
+    background-color: rgba(91, 81, 185, 0.6);
     padding: 2rem 1rem;
 }
 #mapWrapper > section {
@@ -102,16 +119,19 @@ input {
 .butsec {
     padding: 1rem 2rem 2rem;
     margin-top: 2rem;
-    background-color: rgba(91, 81, 185, 0.4);
+    background-color: rgba(91, 81, 185, 0.6);
 }
 #periodBtn {
     display: flex;
+}
+#periodBtn > .btn {
+    border: none;
 }
 #wrapper {
     margin-top: 4rem;
     margin-bottom: 4rem;
     padding-bottom: 3rem;
-    background-color: rgba(91, 81, 185, 0.4);
+    background-color: rgba(91, 81, 185, 0.6);
 }
 #wrapper > section {
     display: flex;
@@ -120,6 +140,8 @@ input {
 }
 #wrapper > section > h1 {
     margin: 1.3rem 0 0 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
 }
 #wrapper > ul {
     list-style-type: none;
@@ -131,8 +153,9 @@ input {
 }
 #wrapper > ul > li > p {
     margin: 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
+    text-transform: uppercase;
 }
 #wrapper > ul > li > section {
     display: flex;
@@ -142,4 +165,6 @@ input {
     text-align: center;
     width: 40%;
     height: 3rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
 }
